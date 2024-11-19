@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Employee Index</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+    <!-- Include the menu bar fragment -->
+    <div th:replace="~{fragments/menu :: menu-bar}"></div>
+
+<!--    <form method="get" action="/greet_controller">-->
+<!--        <label for="empId">Employee ID:</label><br>-->
+<!--        <input type="text" name="empId" required><br>-->
+<!--        <input type="submit" value="Get your greeting here...">-->
+<!--    </form>-->
+
+<div>
+    <form method="get" action="/getMessagesFromQuery">
+        <label for="query">Search query(subject or the body)</label><br>
+        <input type="text" id="query" name="query" required><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>

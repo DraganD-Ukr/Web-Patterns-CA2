@@ -112,6 +112,36 @@ public class MessageDaoImpl extends MySQLDao implements MessageDao {
         return receivedMessages;
     }
 
+    @Override
+    public ArrayList<Message> getReceivedMessagesBySubjectOrBody(String recipientUsrnm, String query) {
+
+        ArrayList<Message> receivedMessages = new ArrayList<>();
+        Connection con = this.getConnection();
+
+        // Select all undeleted received messages for a specific user
+        String sqlQuery = "SELECT * FROM messages WHERE recipient = ? AND deletedForRecipient = 0 AND subject = ? OR body = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sqlQuery)) {
+
+            ps.setString(1, recipientUsrnm);
+            ps.setString(2, query);
+            ps.setString(3, query);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Message m = mapRow(rs);
+                    receivedMessages.add(m);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(LocalDateTime.now() + ": An SQLException occurred in getReceivedMessagesForUser()");
+            System.out.println("Error: " + e.getMessage());
+        }
+        this.freeConnection(con);
+
+        return receivedMessages;
+    }
+
     /**
      * Get a specific <code>Message</code> based on its ID number.
      *
