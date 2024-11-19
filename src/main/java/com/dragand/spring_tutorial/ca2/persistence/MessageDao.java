@@ -3,6 +3,7 @@ package com.dragand.spring_tutorial.ca2.persistence;
 import com.dragand.spring_tutorial.ca2.model.Message;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -23,7 +24,7 @@ public interface MessageDao {
     // This will return an Arraylist of Message objects received by the specified user
     public ArrayList<Message> getReceivedMessagesForUser(String recipientName);
 
-    public ArrayList<Message> getReceivedMessagesBySubjectOrBody(String recipientUsrnm, String query);
+    public HashSet<Message> getReceivedMessagesBySubjectOrBody(String recipientUsrnm, String query);
     
     // Sending a new message
     // This will return:

@@ -9,7 +9,7 @@
 <!-- Include the menu bar fragment -->
 <div th:replace="~{fragments/menu :: menu-bar}"></div>
 
-<table th:each="ms : ${messageList}">
+<table th:each="ms : ${userMessages}">
     <tr>
         <td>ID Number:</td>
         <td th:text="${ms.messageID}"></td>
@@ -28,11 +28,11 @@
     </tr>
     <tr>
         <td>Read Status:</td>
-        <td th:text="${ms.timestamp}"></td>
+        <td th:text="${ms.readStatus}"></td>
     </tr>
     <tr>
         <td>Date Sent:</td>
-        <td th:text="${ms.extension}"></td>
+        <td th:text="${ms.timestamp}"></td>
     </tr>
     <tr> </tr>
 </table>

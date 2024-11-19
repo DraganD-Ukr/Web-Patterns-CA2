@@ -6,6 +6,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  *
@@ -113,18 +114,18 @@ public class MessageDaoImpl extends MySQLDao implements MessageDao {
     }
 
     @Override
-    public ArrayList<Message> getReceivedMessagesBySubjectOrBody(String recipientUsrnm, String query) {
+    public HashSet<Message> getReceivedMessagesBySubjectOrBody(String recipientUsrnm, String query) {
 
-        ArrayList<Message> receivedMessages = new ArrayList<>();
+        HashSet<Message> receivedMessages = new HashSet<>();
         Connection con = this.getConnection();
 
-        // Select all undeleted received messages for a specific user
-        String sqlQuery = "SELECT * FROM messages WHERE recipient = ? AND deletedForRecipient = 0 AND subject = ? OR body = ?";
+        // Select all undeleted received messages for a specific user by subject or body
+        String sqlQuery = "SELECT * FROM messages WHERE recipient = ? AND (subject = ? OR body LIKE ?) AND deletedForRecipient = FALSE";
 
         try (PreparedStatement ps = con.prepareStatement(sqlQuery)) {
 
             ps.setString(1, recipientUsrnm);
-            ps.setString(2, query);
+            ps.setString(2, "%"+query+"%");
             ps.setString(3, query);
 
             try (ResultSet rs = ps.executeQuery()) {
