@@ -12,7 +12,7 @@ public class IndexController {
     }
 
     @GetMapping("/auth")
-    public String userIndex(){
+    public String authorization(){
         return "auth";
     }
 
@@ -21,9 +21,5 @@ public class IndexController {
         return "messages";
     }
 
-    @GetMapping("/logout")
-    public String employeeIndex(){
-        return "logout";
-    }
 
 }
