@@ -71,10 +71,13 @@ public class UserController {
             Model model,
             HttpSession session){
 
-        User user = (User) session.getAttribute("loggedInUser");
+        if (session.getAttribute("loggedInUser") != null){
+            User user = (User) session.getAttribute("loggedInUser");
 
-        session.setAttribute("loggedInUser", null);
-        log.info("Logging out user " + user.getUsername());
+            session.setAttribute("loggedInUser", null);
+            log.info("Logging out user " + user.getUsername());
+        }
+
 
         return "index";
     }
