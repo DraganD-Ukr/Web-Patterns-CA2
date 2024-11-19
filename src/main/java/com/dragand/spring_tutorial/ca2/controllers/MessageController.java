@@ -49,6 +49,9 @@ public class MessageController {
         MessageDao messageDao = new MessageDaoImpl("database.properties");
         ArrayList<Message> allMessages = messageDao.getReceivedMessagesForUser(user.getUsername());
         model.addAttribute("allMessages", allMessages);
+
+        log.info("Getting all messages for user " + session.getAttribute("loggedInUser"));
+        log.debug(allMessages.toString());
         return "userMessages";
     }
 
