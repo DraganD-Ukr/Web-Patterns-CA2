@@ -17,8 +17,8 @@ public class IndexController {
     }
 
     @GetMapping("/messages")
-    public String customerIndex(){
-        return "messages";
+    public String messagesIndex(){
+        return "messages_index";
     }
 
 
