@@ -3,37 +3,30 @@
 <head>
     <link rel="stylesheet" href="/css/styles.css" />
     <meta charset="UTF-8">
-    <title>Message Index</title>
+    <title>All user messages</title>
 </head>
 <body>
 <!-- Include the menu bar fragment -->
 <div th:replace="~{fragments/menu :: menu-bar}"></div>
 
-<table th:each="m : ${userMessages}">
+<table th:each="ms : ${slugMessage}">
     <tr>
         <td>ID Number:</td>
-        <td th:text="${m.messageID}"></td>
+        <td th:text="${ms.messageID}"></td>
     </tr>
     <tr>
         <td>Sender:</td>
-        <td th:text="${m.sender}"></td>
+        <td th:text="${ms.sender}"></td>
     </tr>
     <tr>
         <td>Subject:</td>
-        <td th:text="${m.subject}"></td>
-    </tr>
-    <tr>
-        <td>Body</td>
-        <td th:text="${m.body}"></td>
-    </tr>
-    <tr>
-        <td>Read Status:</td>
-        <td th:text="${m.readStatus}"></td>
+        <td th:text="${ms.subject}"></td>
     </tr>
     <tr>
         <td>Date Sent:</td>
-        <td th:text="${m.timestamp}"></td>
+        <td th:text="${ms.timestamp}"></td>
     </tr>
+
     <tr> </tr>
 </table>
 </body>

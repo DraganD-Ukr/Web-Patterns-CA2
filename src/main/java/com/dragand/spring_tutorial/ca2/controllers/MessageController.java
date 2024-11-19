@@ -7,6 +7,7 @@ import com.dragand.spring_tutorial.ca2.persistence.MessageDaoImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +33,10 @@ public class MessageController {
         MessageDao messageDao = new MessageDaoImpl("database.properties");
 
         HashSet<Message> messages = messageDao.getReceivedMessagesBySubjectOrBody(user.getUsername(), query);
-        model.addAttribute("messages", messages);
+        model.addAttribute("userMessages", messages);
 
         log.info("Messages received by " + user.getUsername() + messages.toString());
-        return "messages";
+        return "userMessages";
     }
 
     @GetMapping("/viewAllMessages")
@@ -48,12 +49,23 @@ public class MessageController {
 
         MessageDao messageDao = new MessageDaoImpl("database.properties");
         ArrayList<Message> allMessages = messageDao.getReceivedMessagesForUser(user.getUsername());
-        model.addAttribute("allMessages", allMessages);
+        model.addAttribute("userMessages", allMessages);
 
         log.info("Getting all messages for user " + session.getAttribute("loggedInUser"));
         log.debug(allMessages.toString());
         return "userMessages";
     }
+
+    @GetMapping("/viewMessage/{id}")
+    public String viewMessage(
+            @PathVariable int id,
+            Model model,
+            HttpSession session
+    ) {
+        model.addAttribute("message",new MessageDaoImpl("database.properties").getMessageById(id));
+        return "messageSlug";
+    }
+
 
     private boolean authorize(User user){
         if (user == null){

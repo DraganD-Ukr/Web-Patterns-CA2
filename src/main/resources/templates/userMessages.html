@@ -3,20 +3,20 @@
 <head>
     <link rel="stylesheet" href="/css/styles.css" />
     <meta charset="UTF-8">
-    <title>Employee List</title>
+    <title>All user messages</title>
 </head>
 <body>
 <!-- Include the menu bar fragment -->
 <div th:replace="~{fragments/menu :: menu-bar}"></div>
 
-<table th:each="ms : ${messages}">
+<table th:each="ms : ${userMessages}">
     <tr>
         <td>ID Number:</td>
         <td th:text="${ms.messageID}"></td>
     </tr>
     <tr>
         <td>Sender:</td>
-        <td th:text="|${ms.sender} |"></td>
+        <td th:text="${ms.sender}"></td>
     </tr>
     <tr>
         <td>Subject:</td>
@@ -26,6 +26,7 @@
         <td>Date Sent:</td>
         <td th:text="${ms.timestamp}"></td>
     </tr>
+    <a href="/viewMessage{ms.messageID}">View Message</a>
     <tr> </tr>
 </table>
 </body>
